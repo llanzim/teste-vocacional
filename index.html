@@ -215,15 +215,21 @@ function calculateResult(){
   }
   profScores.sort((a,b)=>b.score-a.score);
 
-  const maxPerCode = 5 * STATEMENTS.reduce((acc,s)=>{ s.map.forEach(c=>acc[c]=(acc[c]||0)+1); return acc; },{});
-
+  const maxPerCode = STATEMENTS.reduce((acc,s)=>{
+    s.map.forEach(c=>{
+      acc[c] = (acc[c]||0) + 5; // 5 é o valor máximo de cada resposta
+    });
+    return acc;
+  }, {});
+  
   const top = profScores.slice(0,8);
   const profList = document.getElementById('profList'); profList.innerHTML='';
   top.forEach(p=>{
     const title = profKeyToTitle(p.prof);
     const codes = PROF_RIASEC[p.prof].split(' ');
-    let denom=0; codes.forEach(c=>denom += maxPerCode[c]);
-    const pct = denom? Math.round((p.score / denom)*100):0;
+    let denom = 0;
+    codes.forEach(c => { denom += maxPerCode[c]; });
+    const pct = denom ? Math.round((p.score / denom) * 100) : 0;
     const div = document.createElement('div');
     div.className='prof';
     div.innerHTML = `<strong>${title}</strong><div class='muted' style='margin-top:6px'>Compatibilidade estimada: <strong>${pct}%</strong></div>`;
@@ -246,6 +252,7 @@ document.getElementById('restart').addEventListener('click',()=>{ location.reloa
 </script>
 </body>
 </html>
+
 
 
 
