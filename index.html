@@ -172,8 +172,16 @@ STATEMENTS.forEach((s,idx)=>{
   const inner = document.createElement('div'); inner.style.display='flex'; inner.style.gap='6px'; inner.style.justifyContent='flex-end'; inner.style.padding='8px';
   for(let val=5;val>=1;val--){
     const id = `q${s.id}_v${val}`;
-    const label = document.createElement('label'); label.setAttribute('for',id); label.textContent = val;
-    const input = document.createElement('input'); input.type='radio'; input.name=`q${s.id}`; input.id=id; input.value=val;
+    const label = document.createElement('label'); 
+    label.setAttribute('for',id); 
+    label.textContent = '';
+    const scaleLabels = {5:'Concordo totalmente',4:'Concordo parcialmente',3:'Neutro',2:'Discordo parcialmente',1:'Discordo totalmente'};
+    label.setAttribute('aria-label', scaleLabels[val]); // acessibilidade
+    const input = document.createElement('input'); 
+    input.type='radio'; 
+    input.name=`q${s.id}`; 
+    input.id=id; 
+    input.value=val;
     label.prepend(input);
     inner.appendChild(label);
   }
@@ -238,6 +246,7 @@ document.getElementById('restart').addEventListener('click',()=>{ location.reloa
 
 </script></body> 
 </html>
+
 
 
 
