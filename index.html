@@ -110,26 +110,26 @@
 // --- Statements (20) each maps to one or more RIASEC codes ---
 // R Realistic, I Investigative, A Artistic, S Social, E Enterprising, C Conventional
 const STATEMENTS = [
-  {id:1, text:'Gosto de trabalhar com ferramentas, máquinas ou atividades práticas (montar, consertar, construir).', map:['R']},
-  {id:2, text:'Tenho curiosidade científica e gosto de pesquisar em laboratórios ou ambientes técnicos.', map:['I']},
-  {id:3, text:'Gosto de expressar ideias criativas através de design, escrita, imagem ou moda.', map:['A']},
-  {id:4, text:'Sinto satisfação ao ajudar, ensinar ou cuidar de outras pessoas.', map:['S']},
-  {id:5, text:'Tenho interesse em liderar projetos, equipes ou empreender negócios.', map:['E']},
-  {id:6, text:'Gosto de organizar informações, registros e seguir rotinas administrativas.', map:['C']},
-  {id:7, text:'Sou bom em resolver problemas numéricos e raciocínio lógico.', map:['I','C']},
-  {id:8, text:'Me atraem atividades relacionadas ao planejamento e execução de obras e infraestrutura.', map:['R','I']},
-  {id:9, text:'Tenho preocupação com questões ambientais e sustentabilidade.', map:['I','R']},
-  {id:10, text:'Gosto de comunicar, produzir conteúdo, reportar ou montar campanhas.', map:['A','E']},
-  {id:11, text:'Prefiro tarefas que envolvem atenção a detalhes e controle de qualidade.', map:['C','R']},
-  {id:12, text:'Sinto-me motivado por entender processos biológicos, saúde e diagnóstico.', map:['I']},
-  {id:13, text:'Gosto de trabalhar com tecnologia, programação ou sistemas de informação.', map:['I','C']},
-  {id:14, text:'Interesso-me por políticas públicas, direitos e cidadania.', map:['E','S']},
-  {id:15, text:'Tenho interesse por alimentação, nutrição e bem-estar corporal.', map:['S','I']},
-  {id:16, text:'Gosto de planejar e coordenar operações, logística ou produção.', map:['E','C']},
-  {id:17, text:'Sinto atração por estudar e entender a história e culturas.', map:['A','S']},
-  {id:18, text:'Gosto de ensinar, transmitir conhecimento e metodologia.', map:['S']},
-  {id:19, text:'Tenho interesse por estética, cuidados pessoais e cosmética.', map:['A','S']},
-  {id:20, text:'Gosto de trabalhar com vendas, negociação e relacionamento com clientes.', map:['E']}
+  {id:1, text:'Gosto de consertar ou montar coisas.', map:['R']},  
+  {id:2, text:'Gosto de descobrir como as coisas funcionam.', map:['I']},  
+  {id:3, text:'Gosto de criar, desenhar e fazer projetos diferentes.', map:['A']},  
+  {id:4, text:'Gosto de ajudar outras pessoas quando elas precisam.', map:['S']},  
+  {id:5, text:'Gosto de organizar tarefas e coordenar atividades.', map:['E']},  
+  {id:6, text:'Gosto de seguir regras e manter tudo organizado.', map:['C']},  
+  {id:7, text:'Gosto de trabalhar com números e resolver problemas lógicos.', map:['I','C']},  
+  {id:8, text:'Gosto de planejar e cuidar dos detalhes das minhas tarefas.', map:['R','I']},  
+  {id:9, text:'Preocupo-me com o impacto das minhas ações nas pessoas e no ambiente.', map:['I','R']},  
+  {id:10, text:'Gosto de falar, escrever ou mostrar minhas ideias para outras pessoas.', map:['A','E']},  
+  {id:11, text:'Gosto de fazer tarefas com cuidado e atenção aos detalhes.', map:['C','R']},  
+  {id:12, text:'Gosto de estudar e entender como coisas complicadas funcionam.', map:['I']},  
+  {id:13, text:'Gosto de aprender a usar novas tecnologias e programas.', map:['I','C']},  
+  {id:14, text:'Gosto de trabalhar em grupo e ajudar o time a conseguir resultados.', map:['E','S']},  
+  {id:15, text:'Gosto de cuidar da saúde ou bem-estar das pessoas.', map:['S','I']},  
+  {id:16, text:'Gosto de organizar o jeito de fazer as coisas para que tudo funcione melhor.', map:['E','C']},  
+  {id:17, text:'Gosto de aprender sobre história, cultura e comportamento das pessoas.', map:['A','S']},  
+  {id:18, text:'Gosto de ensinar ou explicar coisas para outras pessoas.', map:['S']},  
+  {id:19, text:'Gosto de cuidar da aparência e detalhes estéticos.', map:['A','S']},  
+  {id:20, text:'Gosto de negociar ou conversar para resolver problemas.', map:['E']}
 ];
 
 // --- Map professions to RIASEC primary codes ---
@@ -246,6 +246,7 @@ document.getElementById('restart').addEventListener('click',()=>{ location.reloa
 
 </script></body> 
 </html>
+
 
 
 
