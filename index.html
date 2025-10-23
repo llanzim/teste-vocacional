@@ -193,51 +193,69 @@ STATEMENTS.forEach((s, idx) => {
 });
 
 // --- Calculate result ---
-function calculateResult(){
-  const rTotals = {R:0,I:0,A:0,S:0,E:0,C:0};
-  let answered=0;
-  STATEMENTS.forEach(s=>{
+function calculateResult() {
+  // Inicializa totais RIASEC
+  const rTotals = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+  let answered = 0;
+
+  STATEMENTS.forEach(s => {
     const sel = document.querySelector(`input[name=q${s.id}]:checked`);
-    if(sel){
+    if (sel) {
       answered++;
-      const val = parseInt(sel.value,10);
-      s.map.forEach(code=>{ rTotals[code] += val; });
+      const val = parseInt(sel.value, 10);
+      s.map.forEach(code => { rTotals[code] += val; });
     }
   });
-  if(answered < STATEMENTS.length){ if(!confirm('Você não respondeu todas as afirmações. Deseja continuar mesmo assim?')) return; }
 
-  const profScores = [];
-  for(const [prof, codes] of Object.entries(PROF_RIASEC)){
-    const codeList = codes.split(' ');
-    let s=0;
-    codeList.forEach(c=>{ if(rTotals[c]) s += rTotals[c]; });
-    profScores.push({prof,score:s});
+  if (answered < STATEMENTS.length) {
+    if (!confirm('Você não respondeu todas as afirmações. Deseja continuar mesmo assim?')) return;
   }
-  profScores.sort((a,b)=>b.score-a.score);
 
-  const maxPerCode = STATEMENTS.reduce((acc,s)=>{
-    s.map.forEach(c=>{
-      acc[c] = (acc[c]||0) + 5; // 5 é o valor máximo de cada resposta
-    });
+  // Calcula compatibilidade bruta
+  const profScores = [];
+  for (const [prof, codes] of Object.entries(PROF_RIASEC)) {
+    const codeList = codes.split(' ');
+    let s = 0;
+    codeList.forEach(c => { if (rTotals[c]) s += rTotals[c]; });
+    profScores.push({ prof, score: s });
+  }
+
+  // Calcula o percentual de compatibilidade
+  const maxPerCode = 5 * STATEMENTS.reduce((acc, s) => {
+    s.map.forEach(c => acc[c] = (acc[c] || 0) + 1);
     return acc;
   }, {});
-  
-  const top = profScores.slice(0,8);
-  const profList = document.getElementById('profList'); profList.innerHTML='';
-  top.forEach(p=>{
-    const title = profKeyToTitle(p.prof);
+
+  const profWithPct = profScores.map(p => {
     const codes = PROF_RIASEC[p.prof].split(' ');
     let denom = 0;
     codes.forEach(c => { denom += maxPerCode[c]; });
     const pct = denom ? Math.round((p.score / denom) * 100) : 0;
+    return { ...p, pct };
+  });
+
+  // Ordena do maior para o menor percentual
+  profWithPct.sort((a, b) => b.pct - a.pct);
+
+  // Pega os 8 primeiros
+  const top = profWithPct.slice(0, 8);
+
+  // Renderiza resultados
+  const profList = document.getElementById('profList');
+  profList.innerHTML = '';
+  top.forEach(p => {
+    const title = profKeyToTitle(p.prof);
     const div = document.createElement('div');
-    div.className='prof';
-    div.innerHTML = `<strong>${title}</strong><div class='muted' style='margin-top:6px'>Compatibilidade estimada: <strong>${pct}%</strong></div>`;
+    div.className = 'prof';
+    div.innerHTML = `<strong>${title}</strong>
+                     <div class='muted' style='margin-top:6px'>
+                       Compatibilidade estimada: <strong>${p.pct}%</strong>
+                     </div>`;
     profList.appendChild(div);
   });
 
-  document.getElementById('resultArea').style.display='block';
-  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+  document.getElementById('resultArea').style.display = 'block';
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 }
 
 function profKeyToTitle(k){
@@ -252,6 +270,7 @@ document.getElementById('restart').addEventListener('click',()=>{ location.reloa
 </script>
 </body>
 </html>
+
 
 
 
