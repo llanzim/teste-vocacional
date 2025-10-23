@@ -150,6 +150,7 @@ STATEMENTS.forEach((s, idx) => {
   const tdTxt = document.createElement('td');
   tdTxt.className = 'stmt';
   tdTxt.textContent = (idx + 1) + '. ' + s.text;
+  tdTxt.style.textAlign = 'left';
   tr.appendChild(tdTxt);
 
   // Colunas para cada radio (5 a 1)
@@ -225,3 +226,4 @@ document.getElementById('restart').addEventListener('click',()=>{ location.reloa
 </script>
 </body>
 </html>
+
