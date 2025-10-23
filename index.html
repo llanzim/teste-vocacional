@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8" />
@@ -17,11 +16,9 @@
   .card{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 8px 24px rgba(11,31,80,0.06)}
   .table{width:100%;border-collapse:collapse;margin-top:12px}
   .table thead th{position:sticky;top:0;background:#fff;padding:10px 6px;border-bottom:1px solid #eef2ff;font-size:13px}
-  .table input[type="radio"] {margin: 0;vertical-align: middle;}
-  .stmt{padding:10px 6px;border-bottom:1px solid #f1f5ff;font-size:14px}
-  .radios{display:flex;gap:6px;justify-content:flex-end}
-  .radios input{width:20px;height:20px}
-  .radios label{display:inline-block;padding:6px 4px;border-radius:8px;border:1px solid #eef2ff;min-width:44px;text-align:center;font-size:13px}
+  .stmt{padding:10px 6px;border-bottom:1px solid #f1f5ff;font-size:14px;text-align:left}
+  .table td{text-align:center}
+  .radios input{width:20px;height:20px;margin:0}
   .footer{display:flex;gap:8px;align-items:center;margin-top:12px;justify-content:space-between}
   .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;border:none;font-weight:600}
   .muted{color:var(--muted);font-size:13px}
@@ -30,9 +27,8 @@
   .prof{padding:8px;border-radius:8px;background:#fff;border:1px solid #eef2ff}
   @media(max-width:640px){
     .table thead{display:none}
-    .stmt{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+    .stmt{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;text-align:left}
     .prof-list{grid-template-columns:1fr}
-    .radios label{min-width:38px;padding:6px 2px}
   }
 </style>
 </head>
@@ -43,73 +39,55 @@
     <div>
       <h1>Teste Vocacional ASEUP<br>Mostra de Profissões 2025</h1>
     </div>
-  </header>  <main class="card" role="main">
+  </header>  
+  <main class="card" role="main">
     <p class="lead">Responda honestamente.<br>Não coletamos nem salvamos dados.</p>
     <p class="muted">Marque em cada afirmação:<br>
         <strong>5</strong> = Concordo totalmente (CT)<br>
         <strong>4</strong> = Concordo parcialmente (CP)<br>
         <strong>3</strong> = Neutro (N)<br>
         <strong>2</strong> = Discordo parcialmente (DP)<br>
-        <strong>1</strong> = Discordo totalmente (DT)</p><form id="likertForm">
-  <table class="table" aria-label="Questionário Likert">
-    <thead>
-      <tr>
-        <th style="text-align:left">Afirmação</th>
-        <th>5<br><small>CT</small></th>
-        <th>4<br><small>CP</small></th>
-        <th>3<br><small>N</small></th>
-        <th>2<br><small>DP</small></th>
-        <th>1<br><small>DT</small></th>
-      </tr>
-    </thead>
-    <tbody id="stmts"></tbody>
-  </table>
+        <strong>1</strong> = Discordo totalmente (DT)</p>
 
-  <div class="footer">
-    <div class="muted"></div>
-    <button type="button" class="btn" id="calcBtn">Ver resultado</button>
-  </div>
-</form>
+    <form id="likertForm">
+      <table class="table" aria-label="Questionário Likert">
+        <thead>
+          <tr>
+            <th style="text-align:left">Afirmação</th>
+            <th>5<br><small>CT</small></th>
+            <th>4<br><small>CP</small></th>
+            <th>3<br><small>N</small></th>
+            <th>2<br><small>DP</small></th>
+            <th>1<br><small>DT</small></th>
+          </tr>
+        </thead>
+        <tbody id="stmts"></tbody>
+      </table>
 
-<div id="resultArea" style="display:none">
-  <div class="result-card">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <div><strong>Profissões mais compatíveis</strong><div class="muted">Baseado nas suas respostas e em correspondências acadêmicas (Holland RIASEC).</div></div>
-      <div><button id="restart" class="btn" style="background:#6b7280">Refazer</button></div>
+      <div class="footer">
+        <div class="muted"></div>
+        <button type="button" class="btn" id="calcBtn">Ver resultado</button>
+      </div>
+    </form>
+
+    <div id="resultArea" style="display:none">
+      <div class="result-card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div><strong>Profissões mais compatíveis</strong>
+            <div class="muted">Baseado nas suas respostas e em correspondências acadêmicas (Holland RIASEC).</div>
+          </div>
+          <div><button id="restart" class="btn" style="background:#6b7280">Refazer</button></div>
+        </div>
+        <div id="profList" class="prof-list"></div>
+      </div>
     </div>
-    <div id="profList" class="prof-list"></div>
-  </div>
-</div>
 
-<p class="muted" style="margin-top:10px">Metodologia: perguntas e mapeamento inspirados pelo modelo RIASEC de Holland e pesquisas que usam escalas Likert para medir interesses vocacionais. (Fontes citadas abaixo.)</p>
+    <p class="muted" style="margin-top:10px">Metodologia: perguntas e mapeamento inspirados pelo modelo RIASEC de Holland e pesquisas que usam escalas Likert para medir interesses vocacionais. (Fontes citadas abaixo.)</p>
 
   </main>
-  <footer style="margin-top:12px;color:var(--muted);font-size:13px">
-    Fontes de referência: Holland RIASEC; estudos sobre escalas Likert e instrumentos de interesse vocacional; páginas de cursos UNIFOR e UEMG usadas como base para descrição das profissões.
-    <br>
-    <br>
-    <h3>Direitos Autorais e Propriedade Intelectual</h3>
-    <p>
-      Este site e o teste vocacional aqui disponibilizado foram desenvolvidos para fins educacionais e de orientação acadêmica no contexto da
-      <strong>Mostra de Profissões da ASEUP (Associação dos Estudantes Universitários de Piumhi)</strong>.
-    </p>
-    <p>
-      Todo o material textual, código-fonte, design e estrutura do site estão protegidos por direitos autorais conforme a
-      <em>Lei nº 9.610/1998 (Lei de Direitos Autorais do Brasil)</em>.
-    </p>
-    <p>
-      É proibida a reprodução, cópia, distribuição ou modificação total ou parcial deste conteúdo sem autorização prévia e expressa dos detentores dos direitos.
-    </p>
-    <p>
-        <strong>Atenção:</strong> este site não coleta nem armazena dados pessoais dos usuários.
-    </p>
-    <p style="font-weight:600;margin:0.8rem 0;">
-      © 2025 ASEUP / Allan Oliveira. Todos os direitos reservados.
-    </p>
-  </footer>
-</div><script>
-// --- Statements (20) each maps to one or more RIASEC codes ---
-// R Realistic, I Investigative, A Artistic, S Social, E Enterprising, C Conventional
+</div>
+
+<script>
 const STATEMENTS = [
   {id:1, text:'Gosto de consertar ou montar coisas.', map:['R']},  
   {id:2, text:'Gosto de descobrir como as coisas funcionam.', map:['I']},  
@@ -133,7 +111,6 @@ const STATEMENTS = [
   {id:20, text:'Gosto de negociar ou conversar para resolver problemas.', map:['E']}
 ];
 
-// --- Map professions to RIASEC primary codes ---
 const PROF_RIASEC = {
   administracao:'E C',
   arquitetura:'A R',
@@ -163,38 +140,39 @@ const PROF_RIASEC = {
   gestaocomercial:'E C'
 };
 
-// Build form
+// --- Build table ---
 const tbody = document.getElementById('stmts');
-STATEMENTS.forEach((s,idx)=>{
+STATEMENTS.forEach((s, idx) => {
   const tr = document.createElement('tr');
-  tr.className='row';
-  const tdTxt = document.createElement('td'); tdTxt.className='stmt'; tdTxt.textContent = (idx+1)+'. '+s.text;
-  const radios = document.createElement('td'); radios.colSpan=5; radios.style.padding='0';
-  const inner = document.createElement('div'); inner.style.display='flex'; inner.style.gap='6px'; inner.style.justifyContent='flex-end'; inner.style.padding='8px';
-  for(let val=5;val>=1;val--){
-    const id = `q${s.id}_v${val}`;
-    const label = document.createElement('label'); 
-    label.setAttribute('for',id); 
-    label.textContent = '';
-    const scaleLabels = {5:'Concordo totalmente',4:'Concordo parcialmente',3:'Neutro',2:'Discordo parcialmente',1:'Discordo totalmente'};
-    label.setAttribute('aria-label', scaleLabels[val]); // acessibilidade
-    const input = document.createElement('input'); 
-    input.type='radio'; 
-    input.name=`q${s.id}`; 
-    input.id=id; 
-    input.value=val;
-    label.prepend(input);
-    inner.appendChild(label);
-  }
-  radios.appendChild(inner);
+  tr.className = 'row';
+
+  // Coluna do texto
+  const tdTxt = document.createElement('td');
+  tdTxt.className = 'stmt';
+  tdTxt.textContent = (idx + 1) + '. ' + s.text;
   tr.appendChild(tdTxt);
-  tr.appendChild(radios);
+
+  // Colunas para cada radio (5 a 1)
+  for (let val = 5; val >= 1; val--) {
+    const td = document.createElement('td');
+    td.style.textAlign = 'center';
+
+    const id = `q${s.id}_v${val}`;
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = `q${s.id}`;
+    input.id = id;
+    input.value = val;
+
+    td.appendChild(input);
+    tr.appendChild(td);
+  }
+
   tbody.appendChild(tr);
 });
 
-// Calculate
+// --- Calculate result ---
 function calculateResult(){
-  // Initialize RIASEC totals
   const rTotals = {R:0,I:0,A:0,S:0,E:0,C:0};
   let answered=0;
   STATEMENTS.forEach(s=>{
@@ -207,7 +185,6 @@ function calculateResult(){
   });
   if(answered < STATEMENTS.length){ if(!confirm('Você não respondeu todas as afirmações. Deseja continuar mesmo assim?')) return; }
 
-  // Compute compatibility for each profession by summing the RIASEC scores of its mapped codes
   const profScores = [];
   for(const [prof, codes] of Object.entries(PROF_RIASEC)){
     const codeList = codes.split(' ');
@@ -216,21 +193,22 @@ function calculateResult(){
     profScores.push({prof,score:s});
   }
   profScores.sort((a,b)=>b.score-a.score);
-  // Normalize percent: divide by max possible (5 * number of statements mapped to that RIASEC letters)
+
   const maxPerCode = 5 * STATEMENTS.reduce((acc,s)=>{ s.map.forEach(c=>acc[c]=(acc[c]||0)+1); return acc; },{});
-  // Render top 8
+
   const top = profScores.slice(0,8);
   const profList = document.getElementById('profList'); profList.innerHTML='';
   top.forEach(p=>{
     const title = profKeyToTitle(p.prof);
-    // compute percent roughly: (score / sum of relevant code counts *5) *100
     const codes = PROF_RIASEC[p.prof].split(' ');
-    let denom=0; codes.forEach(c=>denom += maxPerCode[c] * 1);
+    let denom=0; codes.forEach(c=>denom += maxPerCode[c]);
     const pct = denom? Math.round((p.score / denom)*100):0;
-    const div = document.createElement('div'); div.className='prof';
+    const div = document.createElement('div');
+    div.className='prof';
     div.innerHTML = `<strong>${title}</strong><div class='muted' style='margin-top:6px'>Compatibilidade estimada: <strong>${pct}%</strong></div>`;
     profList.appendChild(div);
   });
+
   document.getElementById('resultArea').style.display='block';
   window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
 }
@@ -244,13 +222,6 @@ function profKeyToTitle(k){
 
 document.getElementById('calcBtn').addEventListener('click',calculateResult);
 document.getElementById('restart').addEventListener('click',()=>{ location.reload(); });
-
-</script></body> 
+</script>
+</body>
 </html>
-
-
-
-
-
-
-
